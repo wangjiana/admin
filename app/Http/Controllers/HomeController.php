@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin_layouts.app');
+        return view('home.index');
     }
 }

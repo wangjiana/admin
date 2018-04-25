@@ -12,10 +12,20 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $input = $request->all();
+        $users = User::where(function ($query) use ($input) {
+            if (! empty($input['name'])) {
+                $query->where('name', $input['name']);
+            }
+            if (! empty($input['email'])) {
+                $query->where('email', $input['email']);
+            }
+        })->paginate();
+
+//        dd($users->toArray());
+        return view('users.index', compact('input', 'users'));
     }
 
     /**
@@ -25,7 +35,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -45,9 +55,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -56,9 +66,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     /**

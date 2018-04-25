@@ -4,7 +4,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>Alexander Pierce</p>
@@ -33,8 +33,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="adminlte/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="adminlte/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li class="active"><a href="/adminlte/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="/adminlte/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -46,14 +46,14 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="adminlte/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                    <li><a href="adminlte/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                    <li><a href="adminlte/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                    <li><a href="adminlte/pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                    <li><a href="/adminlte/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+                    <li><a href="/adminlte/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+                    <li><a href="/adminlte/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+                    <li><a href="/adminlte/pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
                 </ul>
             </li>
             <li>
-                <a href="adminlte/pages/widgets.html">
+                <a href="/adminlte/pages/widgets.html">
                     <i class="fa fa-th"></i> <span>Widgets</span>
                     <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
@@ -69,10 +69,10 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="adminlte/pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                    <li><a href="adminlte/pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                    <li><a href="adminlte/pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                    <li><a href="adminlte/pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                    <li><a href="/adminlte/pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+                    <li><a href="/adminlte/pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                    <li><a href="/adminlte/pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                    <li><a href="/adminlte/pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -84,12 +84,12 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="adminlte/pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                    <li><a href="adminlte/pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                    <li><a href="adminlte/pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                    <li><a href="adminlte/pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                    <li><a href="adminlte/pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                    <li><a href="adminlte/pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                    <li><a href="/adminlte/pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
+                    <li><a href="/adminlte/pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+                    <li><a href="/adminlte/pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                    <li><a href="/adminlte/pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                    <li><a href="/adminlte/pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                    <li><a href="/adminlte/pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -100,9 +100,9 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="adminlte/pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                    <li><a href="adminlte/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                    <li><a href="adminlte/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                    <li><a href="/adminlte/pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+                    <li><a href="/adminlte/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
+                    <li><a href="/adminlte/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -113,12 +113,12 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="adminlte/pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                    <li><a href="adminlte/pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                    <li><a href="/adminlte/pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                    <li><a href="/adminlte/pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
                 </ul>
             </li>
             <li>
-                <a href="adminlte/pages/calendar.html">
+                <a href="/adminlte/pages/calendar.html">
                     <i class="fa fa-calendar"></i> <span>Calendar</span>
                     <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
@@ -127,7 +127,7 @@
                 </a>
             </li>
             <li>
-                <a href="adminlte/pages/mailbox/mailbox.html">
+                <a href="/adminlte/pages/mailbox/mailbox.html">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
                     <span class="pull-right-container">
               <small class="label pull-right bg-yellow">12</small>
@@ -144,15 +144,15 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="adminlte/pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                    <li><a href="adminlte/pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="adminlte/pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="adminlte/pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="adminlte/pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="adminlte/pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="adminlte/pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="adminlte/pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                    <li><a href="adminlte/pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                    <li><a href="/adminlte/pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                    <li><a href="/adminlte/pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                    <li><a href="/adminlte/pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+                    <li><a href="/adminlte/pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                    <li><a href="/adminlte/pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                    <li><a href="/adminlte/pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                    <li><a href="/adminlte/pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                    <li><a href="/adminlte/pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                    <li><a href="/adminlte/pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
                 </ul>
             </li>
             <li class="treeview">

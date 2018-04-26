@@ -24,7 +24,6 @@ class UsersController extends Controller
             }
         })->paginate();
 
-//        dd($users->toArray());
         return view('users.index', compact('input', 'users'));
     }
 
@@ -68,7 +67,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.show', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**

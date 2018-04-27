@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -43,9 +44,12 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        return redirect()->route('users.show', $user->id);
     }
 
     /**
@@ -77,9 +81,17 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $input = $request->all();
+        if (! empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        } else {
+            unset($input['password']);
+        }
+
+        $user->update($input);
+        return redirect()->route('users.show', $user->id);
     }
 
     /**
@@ -90,6 +102,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

@@ -91,7 +91,19 @@
 
 <!-- jQuery 3 -->
 <script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+    $.ajaxSetup({
+        beforeSend : function (XHR) {
 
+        },
+        success : function () {
+            
+        },
+        complete : function (XHR, TS) {
+            
+        }
+    });
+</script>
 @yield('js')
 
 <!-- jQuery UI 1.11.4 -->

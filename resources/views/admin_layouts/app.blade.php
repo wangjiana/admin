@@ -93,14 +93,17 @@
 <script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <script>
     $.ajaxSetup({
-        beforeSend : function (XHR) {
+        beforeSend: function (XHR) {
 
         },
-        success : function () {
-            
+        success: function (response, textStatus, jqXHR) {
+
         },
-        complete : function (XHR, TS) {
-            
+        error: function () {
+
+        },
+        complete: function (XHR, TS) {
+
         }
     });
 </script>

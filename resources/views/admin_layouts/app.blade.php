@@ -91,22 +91,25 @@
 
 <!-- jQuery 3 -->
 <script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{ asset('layer-v3.1.1/layer/layer.js') }}"></script>
 <script>
     $.ajaxSetup({
-        beforeSend: function (XHR) {
-
+        layerIndex: -1,
+        beforeSend: function (xhr) {
+            this.layerIndex = layer.load();
         },
-        success: function (response, textStatus, jqXHR) {
-
+        success: function (response, textStatus, xhr) {
+            layer.alert('请求成功！', {icon: 6});
         },
-        error: function () {
-
+        error: function (xhr, textStatus) {
+            layer.alert('请求失败，请刷新后重试！', {icon: 5});
         },
-        complete: function (XHR, TS) {
-
+        complete: function (xhr, ts) {
+            layer.close(this.layerIndex);
         }
     });
 </script>
+
 @yield('js')
 
 <!-- jQuery UI 1.11.4 -->

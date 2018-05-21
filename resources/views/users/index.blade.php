@@ -8,17 +8,17 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="name" class="control-label">用户名</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="用户名" value="{{$input['name'] or ''}}">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="用户名" value="{{ $input['name'] or '' }}">
                         </div>
 
                         <div class="form-group">
                             <label for="email" class="control-label">邮箱</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="邮箱" value="{{$input['email'] or ''}}">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="邮箱" value="{{ $input['email'] or '' }}">
                         </div>
 
                         <div class="form-group">
                             <label for="email" class="control-label">关键字搜索</label>
-                            <input type="text" name="search" id="search" class="form-control" placeholder="关键字搜索" value="{{$input['search'] or ''}}">
+                            <input type="text" name="search" id="search" class="form-control" placeholder="关键字搜索" value="{{ $input['search'] or '' }}">
                             <button type="submit"
                                     style="margin-left: -3px; border-top-left-radius: 0; border-bottom-left-radius: 0;"
                                     class="btn btn-default">
@@ -83,9 +83,13 @@
                                     <a href="{{ route('users.edit', [$user->id]) }}" class="btn btn-default btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <button href="javascript:void(0);" data-id="55" class="btn btn-default btn-sm">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <form style="display: inline-block;" method="post" action="{{ route('users.destroy', [$user->id]) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
+                                        <button class="btn btn-default btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

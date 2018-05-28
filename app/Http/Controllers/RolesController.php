@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
+use App\Models\Role;
+use Symfony\Component\HttpFoundation\Response;
 
 class RolesController extends Controller
 {
@@ -11,9 +13,16 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RoleRequest $request)
     {
-        //
+        $input = $request->all();
+        $roles = Role::where(function ($query) use ($input) {
+            if (! empty($input['search'])) {
+                $query->where('name', 'like', "%{$input['search']}%");
+            }
+        })->paginate();
+
+        return view('roles.index', compact('input', 'roles'));
     }
 
     /**
@@ -23,7 +32,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        //
+        return view('roles.create');
     }
 
     /**
@@ -32,9 +41,11 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        //
+        $input = $request->all();
+        Role::create($input);
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     /**
@@ -43,9 +54,9 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
+        return view('roles.show', compact('role'));
     }
 
     /**
@@ -54,9 +65,9 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        return view('roles.edit', compact('role'));
     }
 
     /**
@@ -66,9 +77,11 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, Role $role)
     {
-        //
+        $input = $request->all();
+        $role->update($input);
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     /**
@@ -77,8 +90,9 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 }

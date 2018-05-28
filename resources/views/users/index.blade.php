@@ -85,7 +85,7 @@
                                     </a>
                                     <form style="display: inline-block;" method="post" action="{{ route('users.destroy', [$user->id]) }}">
                                         {{ csrf_field() }}
-                                        {{ method_field('PUT') }}
+                                        {{ method_field('DELETE') }}
                                         <button class="btn btn-default btn-sm">
                                             <i class="fa fa-trash"></i>
                                         </button>

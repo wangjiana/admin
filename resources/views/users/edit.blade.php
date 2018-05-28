@@ -99,7 +99,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="updated_at" name="updated_at" value="{{ old('updated_at', $user->updated_at) }}" class="form-control updated_at" placeholder="更新时间" disabled>
+                            <input type="text" id="updated_at" name="updated_at" value="{{ old('updated_at', $user->updated_at) }}" class="form-control" placeholder="更新时间" disabled>
                         </div>
                     </div>
                     @if($errors->has('updated_at')) <div class="col-sm-offset-2 col-sm-8 help-block no-margin-bottom">{{ $errors->first('updated_at') }}</div>@endif

@@ -6,8 +6,10 @@
     <title>{{ env('APP_NAME') }} | 仪表盘</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="{{ csrf_token() }}" name="csrf-token">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style type="text/css">
         .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
@@ -92,17 +94,50 @@
 <!-- jQuery 3 -->
 <script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="{{ asset('layer-v3.1.1/layer/layer.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
 <script>
+    toastr.options.closeButton = true;
+    toastr.options.progressBar = true;
+
+    jQuery.validator.setDefaults({
+        // 错误高亮
+        highlight: function(element, errorClass, validClass) {
+            $(element).parents("div.form-group").addClass('has-error');
+        },
+        // 取消错误高亮
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parents("div.form-group").removeClass('has-error');
+        },
+        // 更改错误元素显示位置
+        errorPlacement: function(error, element) {
+            error.insertAfter(element.parents("div.input-group"));
+        },
+        // 校验通过元素删除错误 label
+        success: function(label, element) {
+            label.remove();
+        },
+        submitHandler: function (form) {
+
+        }
+    });
+
     $.ajaxSetup({
         layerIndex: -1,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         beforeSend: function (xhr) {
             this.layerIndex = layer.load();
         },
         success: function (response, textStatus, xhr) {
-            layer.alert('请求成功！', {icon: 6});
+            toastr.success('请求成功！');
+//            layer.alert('请求成功！', {icon: 6});
         },
         error: function (xhr, textStatus) {
-            layer.alert('请求失败，请刷新后重试！', {icon: 5});
+            toastr.error('请求失败，请刷新后重试！');
+//            layer.alert('请求失败，请刷新后重试！', {icon: 5});
         },
         complete: function (xhr, ts) {
             layer.close(this.layerIndex);

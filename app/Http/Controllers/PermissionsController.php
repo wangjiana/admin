@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PermissionRequest;
+use App\Models\Permission;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermissionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(PermissionRequest $request)
     {
-        //
+        $input = $request->all();
+        $permissions = Permission::where(function ($query) use ($input) {
+            if (! empty($input['search'])) {
+                $query->where('name', 'like', "%{$input['search']}%");
+            }
+        })->paginate();
+
+        return view('permissions.index', compact('input', 'permissions'));
     }
 
     /**
@@ -23,7 +27,7 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('permissions.create');
     }
 
     /**
@@ -32,9 +36,11 @@ class PermissionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        //
+        $input = $request->all();
+        Permission::create($input);
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     /**
@@ -43,9 +49,9 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Permission $permission)
     {
-        //
+        return view('permissions.show', compact('permission'));
     }
 
     /**
@@ -54,9 +60,9 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('permissions.edit', compact('permission'));
     }
 
     /**
@@ -66,9 +72,11 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, Permission $permission)
     {
-        //
+        $input = $request->all();
+        $permission->update($input);
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     /**
@@ -77,8 +85,9 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 }

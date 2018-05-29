@@ -21,12 +21,45 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">权限名称</label>
+                    <label for="name" class="col-sm-2 control-label">菜单图标</label>
 
                     <div class="col-sm-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="name" class="form-control" name="name" placeholder="权限名称" required>
+                            <input type="text" id="icon" class="form-control" name="icon" placeholder="菜单图标">
+                        </div>
+                        <span class="help-block">
+    <i class="fa fa-info-circle"></i>&nbsp;For more icons please see <a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>
+</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单名称</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="menu_name" class="form-control" name="menu_name" placeholder="菜单名称" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单路径</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="url" class="form-control" name="url" placeholder="菜单路径">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">权限标识</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="name" class="form-control" name="name" placeholder="权限标识" required>
                         </div>
                     </div>
                 </div>
@@ -52,6 +85,12 @@
             $(function () {
                 $("#appForm").validate({
                     rules: {
+                        menu_name: {
+                            required: true,
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            }
+                        },
                         name: {
                             required: true,
                             normalizer: function(value) {
@@ -60,9 +99,11 @@
                         }
                     },
                     messages: {
+                        menu_name: {
+                            required: '菜单名称不能为空'
+                        },
                         name: {
-                            required: '权限名称不能为空',
-                            maxlength: '权限名称最多为10个字符'
+                            required: '权限标识不能为空'
                         }
                     },
                     submitHandler: function (form) {

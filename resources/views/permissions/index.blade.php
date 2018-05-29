@@ -7,8 +7,8 @@
                 <div class="box-header">
                     <form class="form-inline">
                         <div class="form-group">
-                            <label for="email" class="control-label">权限名称</label>
-                            <input type="text" name="search" id="search" class="form-control" placeholder="权限名称搜索" value="{{ $input['search'] or '' }}">
+                            <label for="email" class="control-label">菜单名称/权限标识</label>
+                            <input type="text" name="search" id="search" class="form-control" placeholder="菜单名称/权限标识搜索" value="{{ $input['search'] or '' }}">
                             <button type="submit"
                                     style="margin-left: -3px; border-top-left-radius: 0; border-bottom-left-radius: 0;"
                                     class="btn btn-default">
@@ -32,7 +32,10 @@
                         <tbody>
                         <tr>
                             <th>#</th>
-                            <th>权限名称</th>
+                            <th>图标</th>
+                            <th>菜单名称</th>
+                            <th>菜单路径</th>
+                            <th>权限标识</th>
                             <th>创建时间</th>
                             <th>更新时间</th>
                             <th>操作</th>
@@ -40,6 +43,9 @@
                         @foreach($permissions as $key => $permission)
                             <tr>
                                 <td>{{ $permissions->firstItem() + $key }}</td>
+                                <td><i class="{{ $permission->icon }}"></i></td>
+                                <td>{{ $permission->menu_name }}</td>
+                                <td>{{ $permission->url }}</td>
                                 <td>{{ $permission->name }}</td>
                                 <td>{{ $permission->created_at }}</td>
                                 <td>{{ $permission->updated_at }}</td>

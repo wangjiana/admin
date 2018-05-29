@@ -30,7 +30,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单图标</label>
 
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="icon" class="form-control" name="icon" value="{{ $permission->icon }}" placeholder="菜单图标" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单名称</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="menu_name" class="form-control" name="menu_name" value="{{ $permission->menu_name }}" placeholder="菜单名称" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单路径</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="url" class="form-control" name="url" value="{{ $permission->url }}" placeholder="菜单路径" required>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">权限名称</label>
 
@@ -41,7 +70,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="created_at" class="col-sm-2 control-label">创建时间</label>
 
@@ -52,7 +80,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="updated_at" class="col-sm-2 control-label">更新时间</label>
 
@@ -85,6 +112,12 @@
             $(function () {
                 $("#appForm").validate({
                     rules: {
+                        menu_name: {
+                            required: true,
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            }
+                        },
                         name: {
                             required: true,
                             normalizer: function(value) {
@@ -93,9 +126,11 @@
                         }
                     },
                     messages: {
+                        menu_name: {
+                            required: '菜单名称不能为空'
+                        },
                         name: {
-                            required: '权限名称不能为空',
-                            maxlength: '权限名称最多为10个字符'
+                            required: '权限标识不能为空'
                         }
                     },
                     submitHandler: function (form) {

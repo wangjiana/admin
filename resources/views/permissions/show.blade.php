@@ -29,18 +29,46 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">权限名称</label>
+                    <label for="name" class="col-sm-2 control-label">菜单图标</label>
 
                     <div class="col-sm-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="name" name="name" value="{{ $permission->name }}" class="form-control" placeholder="权限名称" disabled>
+                            <input type="text" id="icon" class="form-control" name="icon" value="{{ $permission->icon }}"  placeholder="菜单图标" required disabled>
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单名称</label>
 
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="menu_name" class="form-control" name="menu_name" value="{{ $permission->menu_name }}" placeholder="菜单名称" required disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">菜单路径</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="url" class="form-control" name="url" value="{{ $permission->url }}" placeholder="菜单路径" required disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">权限标识</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <input type="text" id="name" name="name" value="{{ $permission->name }}" class="form-control" placeholder="权限标识" disabled>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="created_at" class="col-sm-2 control-label">创建时间</label>
 
@@ -51,7 +79,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="updated_at" class="col-sm-2 control-label">更新时间</label>
 

@@ -27,12 +27,14 @@ class PermissionRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
+                    'menu_name' => 'required|string',
                     'name' => 'required|string|unique:permissions'
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
+                    'menu_name' => 'required|string',
                     'name' => [
                         'required',
                         'string',
@@ -54,7 +56,8 @@ class PermissionRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '权限名称',
+            'menu_name' => '菜单名称',
+            'name' => '权限标识',
         ];
     }
 }

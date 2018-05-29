@@ -13,7 +13,7 @@ class PermissionsController extends Controller
         $input = $request->all();
         $permissions = Permission::where(function ($query) use ($input) {
             if (! empty($input['search'])) {
-                $query->where('name', 'like', "%{$input['search']}%");
+                $query->where('name', 'like', "%{$input['search']}%")->orWhere('menu_name', 'like', "%{$input['search']}%");
             }
         })->paginate();
 

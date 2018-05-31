@@ -35,3 +35,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::resource('users', 'UsersController');
 Route::resource('roles', 'RolesController');
 Route::resource('permissions', 'PermissionsController');
+
+// Menu
+Route::resource('menus', 'MenusController', ['only' => ['index', 'update']]);

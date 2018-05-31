@@ -36,7 +36,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="icon" class="form-control" name="icon" value="{{ $permission->icon }}" placeholder="菜单图标" required>
+                            <input type="text" id="icon" class="form-control" name="icon" value="{{ $permission->icon }}" placeholder="菜单图标">
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="url" class="form-control" name="url" value="{{ $permission->url }}" placeholder="菜单路径" required>
+                            <input type="text" id="url" class="form-control" name="url" value="{{ $permission->url }}" placeholder="菜单路径">
                         </div>
                     </div>
                 </div>

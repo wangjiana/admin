@@ -21,9 +21,9 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="id" class="col-sm-2 control-label">ID</label>
+                    <label for="id" class="col-md-2 control-label">ID</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="id" name="id" value="{{ $role->id }}" class="form-control" placeholder="ID" disabled required>
@@ -32,9 +32,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">用户名</label>
+                    <label for="name" class="col-md-2 control-label">用户名</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="name" name="name" value="{{ $role->name }}" class="form-control" placeholder="用户名" maxlength="10" required>
@@ -43,9 +43,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="created_at" class="col-sm-2 control-label">创建时间</label>
+                    <label for="created_at" class="col-md-2 control-label">创建时间</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="created_at" name="created_at" value="{{ $role->created_at }}" class="form-control" placeholder="创建时间" disabled>
@@ -54,9 +54,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="updated_at" class="col-sm-2 control-label">更新时间</label>
+                    <label for="updated_at" class="col-md-2 control-label">更新时间</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="updated_at" name="updated_at" value="{{ $role->updated_at }}" class="form-control" placeholder="更新时间" disabled>
@@ -66,8 +66,8 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <button type="reset" class="btn btn-default">重置</button>
                     <button type="submit" class="btn btn-info pull-right">保存</button>
                 </div>

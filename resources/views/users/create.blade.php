@@ -21,57 +21,57 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group @if($errors->has('name')) has-error @endif">
-                    <label for="name" class="col-sm-2 control-label">用户名</label>
+                    <label for="name" class="col-md-2 control-label">用户名</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-control" placeholder="用户名" required>
                         </div>
                     </div>
-                    @if($errors->has('name')) <div class="col-sm-offset-2 col-sm-8 help-block no-margin-bottom">{{ $errors->first('name') }}</div>@endif
+                    @if($errors->has('name')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('name') }}</div>@endif
                 </div>
 
                 <div class="form-group @if($errors->has('email')) has-error @endif">
-                    <label for="username" class="col-sm-2 control-label">邮箱</label>
+                    <label for="username" class="col-md-2 control-label">邮箱</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="邮箱" required>
                         </div>
                     </div>
-                    @if($errors->has('email')) <div class="col-sm-offset-2 col-sm-8 help-block no-margin-bottom">{{ $errors->first('email') }}</div>@endif
+                    @if($errors->has('email')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('email') }}</div>@endif
                 </div>
 
                 <div class="form-group @if($errors->has('password')) has-error @endif">
-                    <label for="password" class="col-sm-2 control-label">密码</label>
+                    <label for="password" class="col-md-2 control-label">密码</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
                             <input type="password" id="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="密码">
                         </div>
                     </div>
-                    @if($errors->has('password')) <div class="col-sm-offset-2 col-sm-8 help-block no-margin-bottom">{{ $errors->first('password') }}</div>@endif
+                    @if($errors->has('password')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password') }}</div>@endif
                 </div>
 
                 <div class="form-group @if($errors->has('password_confirmation')) has-error @endif">
-                    <label for="password_confirmation" class="col-sm-2 control-label">密码确认</label>
+                    <label for="password_confirmation" class="col-md-2 control-label">密码确认</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
                             <input type="password" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control password_confirmation" placeholder="密码确认">
                         </div>
                     </div>
-                    @if($errors->has('password_confirmation')) <div class="col-sm-offset-2 col-sm-8 help-block no-margin-bottom">{{ $errors->first('password_confirmation') }}</div>@endif
+                    @if($errors->has('password_confirmation')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password_confirmation') }}</div>@endif
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <button type="reset" class="btn btn-default">重置</button>
                     <button type="submit" class="btn btn-info pull-right">保存</button>
                 </div>

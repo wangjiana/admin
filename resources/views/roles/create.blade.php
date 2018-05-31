@@ -21,9 +21,9 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">角色名</label>
+                    <label for="name" class="col-md-2 control-label">角色名</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="name" class="form-control" name="name" placeholder="角色名" maxlength="10" required>
@@ -33,8 +33,8 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <button type="reset" class="btn btn-default">重置</button>
                     <button type="submit" class="btn btn-info pull-right store">保存</button>
                 </div>

@@ -21,9 +21,9 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">菜单图标</label>
+                    <label for="name" class="col-md-2 control-label">菜单图标</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="icon" class="form-control" name="icon" placeholder="菜单图标">
@@ -34,9 +34,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">菜单名称</label>
+                    <label for="name" class="col-md-2 control-label">菜单名称</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="menu_name" class="form-control" name="menu_name" placeholder="菜单名称" required>
@@ -44,9 +44,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">菜单路径</label>
+                    <label for="name" class="col-md-2 control-label">菜单路径</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="url" class="form-control" name="url" placeholder="菜单路径">
@@ -54,9 +54,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">权限标识</label>
+                    <label for="name" class="col-md-2 control-label">权限标识</label>
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                             <input type="text" id="name" class="form-control" name="name" placeholder="权限标识" required>
@@ -66,8 +66,8 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <button type="reset" class="btn btn-default">重置</button>
                     <button type="submit" class="btn btn-info pull-right store">保存</button>
                 </div>

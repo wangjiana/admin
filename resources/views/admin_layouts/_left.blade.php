@@ -28,20 +28,20 @@
             @foreach ($layout_menus as $menu)
                 @if (! empty($menu['children']))
                     <li class="@if(in_array($layout_uri, array_column($menu->children, 'url'))) active @endif treeview">
-                        <a href="{{ $menu->url or '#' }}">
-                            <i class="{{ $menu->icon or 'fa fa-tasks'}}"></i> <span>{{ $menu->menu_name }}</span>
+                        <a href="@if($menu->url) {{ $menu->url }} @else # @endif">
+                            <i class="@if($menu->icon) {{ $menu->icon }} @else fa fa-tasks @endif"></i> <span>{{ $menu->menu_name }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
 
                         <ul class="treeview-menu">
                             @foreach($menu->children as $value)
-                                <li @if($value->url == $layout_uri) class="active" @endif><a href="{{ $value->url }}"><i class="{{ $value->icon or 'fa fa-circle-o' }}"></i> {{ $value->menu_name }}</a></li>
+                                <li @if($value->url == $layout_uri) class="active" @endif><a href="{{ $value->url }}"><i class="@if($value->icon) {{ $value->icon }} @else fa fa-circle-o @endif"></i> {{ $value->menu_name }}</a></li>
                             @endforeach
                         </ul>
                     </li>
                 @else
                     <li @if($menu->url == $layout_uri) class="active" @endif>
-                        <a href="{{ $menu->url or '#' }}">
+                        <a href="@if($menu->url) {{ $menu->url }} @else # @endif">
                             <i class="{{ $menu->icon or 'fa fa-tasks' }}"></i> <span>{{ $menu->menu_name }}</span>
                         </a>
                     </li>

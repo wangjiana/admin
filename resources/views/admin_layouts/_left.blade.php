@@ -24,8 +24,30 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="header">主要导航</li>
+            @foreach ($layout_menus as $menu)
+                @if (! empty($menu['children']))
+                    <li class="@if(in_array($layout_uri, array_column($menu->children, 'url'))) active @endif treeview">
+                        <a href="{{ $menu->url or '#' }}">
+                            <i class="{{ $menu->icon or 'fa fa-tasks'}}"></i> <span>{{ $menu->menu_name }}</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @foreach($menu->children as $value)
+                                <li @if($value->url == $layout_uri) class="active" @endif><a href="{{ $value->url }}"><i class="{{ $value->icon or 'fa fa-circle-o' }}"></i> {{ $value->menu_name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @else
+                    <li @if($menu->url == $layout_uri) class="active" @endif>
+                        <a href="{{ $menu->url or '#' }}">
+                            <i class="{{ $menu->icon or 'fa fa-tasks' }}"></i> <span>{{ $menu->menu_name }}</span>
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     <span class="pull-right-container">
@@ -33,7 +55,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="/adminlte/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="/adminlte/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                     <li><a href="/adminlte/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li>
@@ -189,7 +211,7 @@
                 </ul>
             </li>
             <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-            <li class="header">LABELS</li>
+            <li class="header">标签</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>

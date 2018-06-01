@@ -9,16 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MenusController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $menus = $this->getMenus();
         return view('menus.index', compact('menus'));
-    }
-
-    protected function getMenus()
-    {
-        $permission = Permission::where('parent_id', 0)->orWhere('url', '!=', '')->orderBy('sort')->get();
-        return arrayToTree($permission);
     }
 
     /**

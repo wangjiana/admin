@@ -37,6 +37,7 @@
                             <li class="dd-item" data-id="{{ $menu->id }}">
                                 <div class="dd-handle">
                                     <i class="{{ $menu->icon }}"></i>&nbsp;<strong>{{ $menu->menu_name }}</strong>&nbsp;&nbsp;&nbsp;<a href="{{ $menu->url }}">{{ $menu->url }}</a>
+                                    <span class="pull-right dd-nodrag"><a href="{{ route('permissions.edit', [$menu->id]) }}"><i class="fa fa-edit"></i></a></span>
                                 </div>
                                 @if (! empty($menu->children))
                                 <ol class="dd-list">
@@ -44,7 +45,21 @@
                                     <li class="dd-item" data-id="{{ $child->id }}">
                                         <div class="dd-handle">
                                             <i class="{{ $child->icon }}"></i>&nbsp;<strong>{{ $child->menu_name }}</strong>&nbsp;&nbsp;&nbsp;<a href="{{ $child->url }}">{{ $child->url }}</a>
+                                            <span class="pull-right dd-nodrag"><a href="{{ route('permissions.edit', [$child->id]) }}"><i class="fa fa-edit"></i></a></span>
                                         </div>
+                                        
+                                        @if (! empty($child->children))
+                                        <ol class="dd-list">
+                                            @foreach ($child->children as $grandson)
+                                                <li class="dd-item" data-id="{{ $grandson->id }}">
+                                                    <div class="dd-handle">
+                                                        <i class="{{ $grandson->icon }}"></i>&nbsp;<strong>{{ $grandson->menu_name }}</strong>&nbsp;&nbsp;&nbsp;<a href="{{ $grandson->url }}">{{ $grandson->url }}</a>
+                                                        <span class="pull-right dd-nodrag"><a href="{{ route('permissions.edit', [$grandson->id]) }}"><i class="fa fa-edit"></i></a></span>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ol>
+                                        @endif
                                     </li>
                                     @endforeach
                                 </ol>
@@ -64,7 +79,7 @@
     <script src="{{ asset('nestable/jquery.nestable.js') }}"></script>
     <script>
         $(function () {
-            $('.dd').nestable({maxDepth: 2});
+            $('.dd').nestable({maxDepth: 3});
 
             $('#nestable-menu').on('click', function(e) {
                 var target = $(e.target),

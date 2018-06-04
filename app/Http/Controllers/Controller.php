@@ -22,7 +22,7 @@ class Controller extends BaseController
 
     protected function getMenus()
     {
-        $permission = Permission::where('parent_id', 0)->orWhere('url', '!=', '')->orderBy('sort')->get();
+        $permission = Permission::orderBy('sort')->get();
         return arrayToTree($permission);
     }
 }

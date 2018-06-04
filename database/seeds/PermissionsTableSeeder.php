@@ -28,14 +28,14 @@ class PermissionsTableSeeder extends Seeder
                 ['name' => 'roles.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新角色', 'url' => ''],
                 ['name' => 'roles.destroy', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '删除角色', 'url' => ''],
 
-                ['name' => 'permissions.index', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '权限列表', 'url' => '/permissions'],
+                ['name' => 'permissions.index', 'guard_name' => 'web', 'icon' => 'fa fa-ban', 'menu_name' => '权限列表', 'url' => '/permissions'],
                 ['name' => 'permissions.create', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '创建权限', 'url' => ''],
                 ['name' => 'permissions.store', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '保存权限', 'url' => ''],
                 ['name' => 'permissions.edit', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '编辑权限', 'url' => ''],
                 ['name' => 'permissions.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新权限', 'url' => ''],
                 ['name' => 'permissions.destroy', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '删除权限', 'url' => ''],
 
-                ['name' => 'menus.index', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '菜单列表', 'url' => '/menus'],
+                ['name' => 'menus.index', 'guard_name' => 'web', 'icon' => 'fa fa-bars', 'menu_name' => '菜单列表', 'url' => '/menus'],
                 ['name' => 'menus.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新菜单', 'url' => ''],
             ]],
         ];

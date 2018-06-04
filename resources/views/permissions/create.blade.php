@@ -21,6 +21,19 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">父级菜单</label>
+
+                    <div class="col-md-8">
+                        <select id="parent_id" name="parent_id" class="form-control">
+                            <option value="0">根目录</option>
+
+                            @foreach($permissions as $permission)
+                            <option value="{{ $permission->id }}">{{ $permission->delimiter }}{{ $permission->menu_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="name" class="col-md-2 control-label">菜单图标</label>
 
                     <div class="col-md-8">
@@ -81,6 +94,8 @@
     <script>
         (function () {
             'use strict';
+
+            $("select").select2();
 
             $(function () {
                 $("#appForm").validate({

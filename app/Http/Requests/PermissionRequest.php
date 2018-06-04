@@ -27,14 +27,18 @@ class PermissionRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'menu_name' => 'required|string',
+                    'menu_name' => 'required|string|unique:permissions',
                     'name' => 'required|string|unique:permissions'
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
-                    'menu_name' => 'required|string',
+                    'menu_name' => [
+                        'required',
+                        'string',
+                        Rule::unique('permissions')->ignore($this->segment(2)),
+                    ],
                     'name' => [
                         'required',
                         'string',

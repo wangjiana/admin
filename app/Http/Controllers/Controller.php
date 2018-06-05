@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Route;
 use App\Models\Permission;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class Controller extends BaseController
     {
         $menus = $this->getMenus();
         view()->share('layout_menus', $menus);
-        view()->share('layout_uri', '/' . $request->path());
+//        view()->share('layout_uri', '/' . $request->path());
+        view()->share('route_name', Route::currentRouteName());
     }
 
     protected function getMenus()

@@ -14,6 +14,7 @@ if (! function_exists('arrayToTree')) {
     function arrayToTree(&$array, $parentId = 0, $indexKey = 'id', $parentName = 'parent_id', $childrenName = 'children')
     {
         $tempArray = array();
+
         foreach ($array as $key => $value) {
             if ($value[$parentName] == $parentId) {
                 unset($array[$key]);
@@ -21,6 +22,7 @@ if (! function_exists('arrayToTree')) {
                 $tempArray[] = $value;
             }
         }
+
         return $tempArray;
     }
 }
@@ -38,12 +40,14 @@ if (! function_exists('treeToArray')) {
     function treeToArray($data, $parentId = 0, $indexKey = 'id', $parentName = 'parent_id', $childrenName = 'children')
     {
         $tempArray = array();
+
         foreach ($data as $key => $value) {
             $tempArray[] = [$indexKey => $value[$indexKey], $parentName => $parentId];
             if (isset($value[$childrenName])) {
                 $tempArray = array_merge($tempArray, treeToArray($value[$childrenName], $value[$indexKey], $indexKey, $parentName, $childrenName));
             }
         }
+
         return $tempArray;
     }
 }
@@ -60,6 +64,7 @@ if (! function_exists('arrayProcess')) {
     function arrayProcess(&$array, $parentId = 0, $delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $level = 1)
     {
         $tempArray = array();
+
         foreach ($array as $key => $value) {
             if ($value['parent_id'] == $parentId) {
                 unset($array[$key]);
@@ -68,6 +73,25 @@ if (! function_exists('arrayProcess')) {
                 $tempArray = array_merge($tempArray, arrayProcess($array, $value['id'], $delimiter, $level + 1));
             }
         }
+
+        return $tempArray;
+    }
+}
+
+if (! function_exists('arrayChildMerge')) {
+    /**
+     * 把数组的子集进行合并【三维数组转二维数组】
+     * @param $array
+     * @return array
+     */
+    function arrayChildMerge($array)
+    {
+        $tempArray = array();
+
+        foreach ($array as $value) {
+            $tempArray = array_merge($tempArray, $value);
+        }
+
         return $tempArray;
     }
 }

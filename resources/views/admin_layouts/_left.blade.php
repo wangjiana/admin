@@ -27,7 +27,7 @@
             <li class="header">主要导航</li>
             @foreach ($layout_menus as $menu)
                 @if (! empty($menu['children']))
-                    <li class="@if(in_array($layout_uri, array_column($menu->children, 'url'))) active @endif treeview">
+                    <li class="@if(in_array($route_name, array_column($menu->children, 'name')) || in_array($route_name, array_column(arrayChildMerge(array_column($menu->children, 'children')), 'name'))) active @endif treeview">
                         <a href="@if($menu->url) {{ $menu->url }} @else # @endif">
                             <i class="@if($menu->icon) {{ $menu->icon }} @else fa fa-tasks @endif"></i> <span>{{ $menu->menu_name }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -35,12 +35,12 @@
 
                         <ul class="treeview-menu">
                             @foreach($menu->children as $value)
-                                <li @if($value->url == $layout_uri) class="active" @endif><a href="{{ $value->url }}"><i class="@if($value->icon) {{ $value->icon }} @else fa fa-circle-o @endif"></i> {{ $value->menu_name }}</a></li>
+                                <li @if($value->name == $route_name || in_array($route_name, array_column($value->children, 'name'))) class="active" @endif><a href="{{ $value->url }}"><i class="@if($value->icon) {{ $value->icon }} @else fa fa-circle-o @endif"></i> {{ $value->menu_name }}</a></li>
                             @endforeach
                         </ul>
                     </li>
                 @else
-                    <li @if($menu->url == $layout_uri) class="active" @endif>
+                    <li @if($menu->name == $route_name) class="active" @endif>
                         <a href="@if($menu->url) {{ $menu->url }} @else # @endif">
                             <i class="{{ $menu->icon or 'fa fa-tasks' }}"></i> <span>{{ $menu->menu_name }}</span>
                         </a>

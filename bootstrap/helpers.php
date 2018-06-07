@@ -52,7 +52,7 @@ if (! function_exists('treeToArray')) {
     }
 }
 
-if (! function_exists('arrayProcess')) {
+if (! function_exists('arrayAddDelimiter')) {
     /**
      * 处理二维数组增加 delimiter 字段并进行层级关系排序
      * @param $array
@@ -61,7 +61,7 @@ if (! function_exists('arrayProcess')) {
      * @param int $level
      * @return array
      */
-    function arrayProcess(&$array, $parentId = 0, $delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $level = 1)
+    function arrayAddDelimiter(&$array, $parentId = 0, $delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $level = 1)
     {
         $tempArray = array();
 
@@ -70,7 +70,7 @@ if (! function_exists('arrayProcess')) {
                 unset($array[$key]);
                 $value['delimiter'] = str_repeat($delimiter, $level);
                 $tempArray[] = $value;
-                $tempArray = array_merge($tempArray, arrayProcess($array, $value['id'], $delimiter, $level + 1));
+                $tempArray = array_merge($tempArray, arrayAddDelimiter($array, $value['id'], $delimiter, $level + 1));
             }
         }
 

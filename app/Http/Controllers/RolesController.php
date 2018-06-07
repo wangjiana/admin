@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RoleRequest;
+use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class RolesController extends Controller
@@ -22,7 +24,9 @@ class RolesController extends Controller
             }
         })->paginate();
 
-        return view('roles.index', compact('input', 'roles'));
+        $permissions = Permission::getPermissionsDelimiter();
+
+        return view('roles.index', compact('input', 'roles', 'permissions'));
     }
 
     /**
@@ -93,6 +97,19 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
+    }
+
+    public function getRoleAuth(Role $role)
+    {
+        $permissions = Permission::getPermissionsDelimiter();
+        $role_permissions = $role->permissions()->pluck('id')->toArray();
+        return view('roles._auth', compact('permissions', 'role_permissions'));
+    }
+
+    public function roleAuth(Request $request, Role $role)
+    {
+        $role->syncPermissions($request->input('permission_ids', []));
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 }

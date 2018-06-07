@@ -24,7 +24,6 @@ class Controller extends BaseController
 
     protected function getMenus()
     {
-        $permission = Permission::orderBy('sort')->get();
-        return arrayToTree($permission);
+        return Permission::getPermissionsTree();
     }
 }

@@ -27,8 +27,8 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
-        $permissions = arrayProcess($permissions);
+        $permissions = Permission::getPermissionsDelimiter();
+
         return view('permissions.create', compact('permissions'));
     }
 

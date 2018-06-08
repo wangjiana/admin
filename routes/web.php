@@ -40,3 +40,6 @@ Route::resource('permissions', 'PermissionsController');
 
 // Menu
 Route::resource('menus', 'MenusController', ['only' => ['index', 'update']]);
+
+// laravel logs
+Route::get('logs', 'LogController@index');

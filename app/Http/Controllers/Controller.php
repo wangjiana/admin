@@ -16,14 +16,35 @@ class Controller extends BaseController
 
     public function __construct(Request $request)
     {
-        $menus = $this->getMenus();
-        view()->share('layout_menus', $menus);
+        if (! $request->ajax()) {
+            $menus = $this->getMenus();
+            $routeName = Route::currentRouteName();
+            $menuName = $this->getCurrentMenuName($menus, $routeName);
+            $navPath = $this->getNavPath($this->getMenus(), $routeName);
+
+            view()->share('layout_menus', $menus);
 //        view()->share('layout_uri', '/' . $request->path());
-        view()->share('route_name', Route::currentRouteName());
+            view()->share('layout_route_name', $routeName);
+            view()->share('layout_menu_name', $menuName);
+            view()->share('layout_nav_path', $navPath);
+        }
     }
 
     protected function getMenus()
     {
         return Permission::getPermissionsTree();
+    }
+
+    protected function getCurrentMenuName($menus, $routeName)
+    {
+        $data = treeFindNode($menus, 'name', $routeName);
+        return $data->menu_name;
+    }
+
+    protected function getNavPath($menus, $routeName)
+    {
+        $data = treeFindNode($menus, 'name', $routeName, true);
+        $data = treeToArray([$data]);
+        return $data;
     }
 }

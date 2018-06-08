@@ -65,12 +65,19 @@
         <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Dashboard
+                    {{ $layout_menu_name }}
                     <small>控制面板</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Dashboard</li>
+                    <li><a href="/"><i class="fa fa-dashboard"></i>主页</a></li>
+                    @foreach($layout_nav_path as $key => $value)
+                        @if($layout_menu_name == $value->menu_name)
+                            <li class="active">{{ $value->menu_name }}</li>
+                            @break;
+                        @else
+                            <li><a href="{{ $value->url ?: '#' }}">{{ $value->menu_name }}</a></li>
+                        @endif
+                    @endforeach
                 </ol>
             </section>
 

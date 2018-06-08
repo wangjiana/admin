@@ -30,6 +30,21 @@ if (! function_exists('arrayToTree')) {
 if (! function_exists('treeToArray')) {
     /**
      * 树形结构转为二维数组
+     *$data = [
+     *    [
+     *        "id" => "1",
+     *        "children" => [
+     *            [
+     *                "id" => "2",
+     *                "children" => [
+     *                    [
+     *                        "id" => "3",
+     *                    ]
+     *                ],
+     *            ],
+     *        ]
+     *    ]
+     *];
      * @param $data
      * @param int $parentId
      * @param string $indexKey
@@ -42,7 +57,8 @@ if (! function_exists('treeToArray')) {
         $tempArray = array();
 
         foreach ($data as $key => $value) {
-            $tempArray[] = [$indexKey => $value[$indexKey], $parentName => $parentId];
+            $value[$parentName] = $parentId;
+            $tempArray[] = $value;
             if (isset($value[$childrenName])) {
                 $tempArray = array_merge($tempArray, treeToArray($value[$childrenName], $value[$indexKey], $indexKey, $parentName, $childrenName));
             }
@@ -93,5 +109,32 @@ if (! function_exists('arrayChildMerge')) {
         }
 
         return $tempArray;
+    }
+}
+
+if (! function_exists('treeFindNode')) {
+    /**
+     * 树形结构中获取子节点【默认不返回上级节点， $rootNode = true 则返回所有上级节点】
+     * @param $data
+     * @param string $nodeName
+     * @param string $nodeValue
+     * @param bool $rootNode
+     * @param string $childrenName
+     * @return mixed
+     */
+    function treeFindNode($data, $nodeName = '', $nodeValue = '', $rootNode = false, $childrenName = 'children')
+    {
+        foreach ($data as $value) {
+            if ($value[$nodeName] == $nodeValue) {
+                return $value;
+            }
+            if (! empty($value[$childrenName])) {
+                $tempArray = treeFindNode($value[$childrenName], $nodeName, $nodeValue, $rootNode, $childrenName);
+                if ($tempArray) {
+                    $rootNode ? $value[$childrenName] = [$tempArray] : $value = $tempArray;
+                    return $value;
+                }
+            }
+        }
     }
 }

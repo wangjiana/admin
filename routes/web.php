@@ -43,3 +43,6 @@ Route::resource('menus', 'MenusController', ['only' => ['index', 'update']]);
 
 // laravel logs
 Route::get('logs', 'LogController@index');
+
+// 操作日志
+Route::resource('operations', 'OperationController');

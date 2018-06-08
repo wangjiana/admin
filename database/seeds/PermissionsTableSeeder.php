@@ -37,6 +37,10 @@ class PermissionsTableSeeder extends Seeder
 
                 ['name' => 'menus.index', 'guard_name' => 'web', 'icon' => 'fa fa-bars', 'menu_name' => '菜单列表', 'url' => '/menus'],
                 ['name' => 'menus.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新菜单', 'url' => ''],
+
+                ['name' => 'logs.index', 'guard_name' => 'web', 'icon' => 'fa fa-exclamation-triangle', 'menu_name' => '错误日志', 'url' => '/logs'],
+
+                ['name' => 'operations.index', 'guard_name' => 'web', 'icon' => 'fa fa-history', 'menu_name' => '操作日志', 'url' => '/operations'],
             ]],
         ];
 

@@ -13,7 +13,9 @@ class AddIconAndMenuNameAndUrlAndParentIdAndSortToPermissionsTable extends Migra
      */
     public function up()
     {
-        Schema::table('permissions', function (Blueprint $table) {
+        $tableNames = config('permission.table_names');
+
+        Schema::table($tableNames['permissions'], function (Blueprint $table) {
             $table->string('icon')->nullable()->comment('图标');
             $table->string('menu_name')->default('')->comment('菜单名称');
             $table->string('url')->nullable()->comment('路径');
@@ -29,7 +31,9 @@ class AddIconAndMenuNameAndUrlAndParentIdAndSortToPermissionsTable extends Migra
      */
     public function down()
     {
-        Schema::table('permissions', function (Blueprint $table) {
+        $tableNames = config('permission.table_names');
+
+        Schema::table($tableNames['permissions'], function (Blueprint $table) {
             $table->dropColumn('parent_id');
             $table->dropColumn('icon');
             $table->dropColumn('menu_name');

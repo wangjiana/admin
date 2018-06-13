@@ -16,6 +16,8 @@ class Controller extends BaseController
 
     public function __construct(Request $request)
     {
+        $this->middleware('permission');
+
         if (! $request->ajax()) {
             $menus = $this->getMenus();
             $routeName = Route::currentRouteName();

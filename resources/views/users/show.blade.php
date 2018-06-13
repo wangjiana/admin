@@ -53,6 +53,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="role_id" class="col-md-2 control-label">角色</label>
+
+                    <div class="col-md-8">
+                        <select id="role_id" name="role_id" class="form-control">
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}" @if(in_array($role->name, $userRoleNames)) selected @endif>{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="created_at" class="col-md-2 control-label">创建时间</label>
 
                     <div class="col-md-8">

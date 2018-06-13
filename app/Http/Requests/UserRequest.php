@@ -29,7 +29,12 @@ class UserRequest extends FormRequest
                 return [
                     'name' => 'required|string',
                     'email' => 'required|email|unique:users',
-                    'password' => 'string|min:6|confirmed',
+                    'password' => 'required|string|min:6|confirmed',
+                    'role_id' => [
+                        'required',
+                        'numeric',
+                        Rule::exists(config('permission.table_names.roles'), 'id')
+                    ]
                 ];
                 break;
             case 'PUT':
@@ -42,6 +47,11 @@ class UserRequest extends FormRequest
                         Rule::unique('users')->ignore($this->segment(2)),
                     ],
                     'password' => 'nullable|string|min:6|confirmed',
+                    'role_id' => [
+                        'required',
+                        'numeric',
+                        Rule::exists(config('permission.table_names.roles'), 'id')
+                    ]
                 ];
                 break;
             default:

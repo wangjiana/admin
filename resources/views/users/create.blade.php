@@ -67,6 +67,18 @@
                     </div>
                     @if($errors->has('password_confirmation')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password_confirmation') }}</div>@endif
                 </div>
+
+                <div class="form-group">
+                    <label for="role_id" class="col-md-2 control-label">角色</label>
+
+                    <div class="col-md-8">
+                        <select id="role_id" name="role_id" class="form-control">
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
@@ -79,4 +91,14 @@
             <!-- /.box-footer -->
         </form>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        (function () {
+            'use strict';
+
+            $("select").select2();
+        })();
+    </script>
 @endsection

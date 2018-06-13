@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -49,6 +51,9 @@ class UsersController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+
+        $user->assignRole($input['role_id']);
+
         return redirect()->route('users.show', $user->id);
     }
 
@@ -60,7 +65,9 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $roles = Role::all();
+        $userRoleNames = $user->getRoleNames()->toArray();
+        return view('users.show', compact('user', 'roles', 'userRoleNames'));
     }
 
     /**
@@ -71,7 +78,9 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        $userRoleNames = $user->getRoleNames()->toArray();
+        return view('users.edit', compact('user', 'roles', 'userRoleNames'));
     }
 
     /**

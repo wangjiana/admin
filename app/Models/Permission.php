@@ -19,4 +19,9 @@ class Permission extends \Spatie\Permission\Models\Permission
 
         return arrayToTree($permission);
     }
+
+    public static function firstByName($name)
+    {
+       return self::where('name', $name)->first();
+    }
 }

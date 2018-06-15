@@ -68,6 +68,50 @@ if (! function_exists('treeToArray')) {
     }
 }
 
+/**
+ * 树形结构转为二维数组
+ *
+$permissions = [
+    ['name' => 'xtgl', 'guard_name' => 'web', 'icon' => 'fa fa-tasks', 'menu_name' => '系统管理', 'url' => '', 'children' => [
+        ['name' => 'users.index', 'guard_name' => 'web', 'icon' => 'fa fa-users', 'menu_name' => '用户列表 ', 'url' => '/users', 'children' => [
+            ['name' => 'users.create', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '创建用户', 'url' => ''],
+            ['name' => 'users.store', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '保存用户', 'url' => ''],
+            ['name' => 'users.edit', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '编辑用户', 'url' => ''],
+            ['name' => 'users.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新用户', 'url' => ''],
+            ['name' => 'users.destroy', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '删除用户', 'url' => ''],
+        ]]
+    ]],
+];
+ * @param $data
+ * @param int $parentId
+ * @param string $indexKey
+ * @param string $parentName
+ * @param string $childrenName
+ * @return array
+ */
+if (! function_exists('treeToArrayNoId')) {
+    function treeToArrayNoId($data, $parentId = 0, $indexKey = 'id', $parentName = 'parent_id', $childrenName = 'children')
+    {
+        static $_treeToArrayNoId = 0;
+
+        $tempArray = array();
+
+        foreach ($data as $key => $value) {
+            $value[$indexKey] = ++$_treeToArrayNoId;
+            $value[$parentName] = $parentId;
+            $childs = isset($value[$childrenName]) ? $value[$childrenName] : [];
+            unset($value[$childrenName]);
+            $tempArray[] = $value;
+
+            if (isset($childs)) {
+                $tempArray = array_merge($tempArray, treeToArrayNoId($childs, $value[$indexKey], $indexKey, $parentName, $childrenName));
+            }
+        }
+
+        return $tempArray;
+    }
+}
+
 if (! function_exists('arrayAddDelimiter')) {
     /**
      * 处理二维数组增加 delimiter 字段并进行层级关系排序

@@ -65,15 +65,15 @@ class SeedUsersAndRolesAndPermissionsData extends Migration
 
         // 创建超级管理员和普通管理员账号，并赋予相应角色
         User::create([
-            'name' => "super_admin",
-            'email' => 'super_admin@qq.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'name' => env('SUPER_ADMIN_NAME', "super_admin"),
+            'email' => env('SUPER_ADMIN_EMAIL', 'super_admin@qq.com'),
+            'password' => bcrypt(env('SUPER_ADMIN_PASSWORD', 'secret')), // secret
         ])->assignRole($super_admin);
 
         User::create([
-            'name' => "admin",
-            'email' => "admin@qq.com",
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'name' => env('ADMIN_NAME', "admin"),
+            'email' => env('ADMIN_EMAIL', 'admin@qq.com'),
+            'password' => bcrypt(env('ADMIN_PASSWORD', 'secret')), // secret
         ])->assignRole($admin);
     }
 

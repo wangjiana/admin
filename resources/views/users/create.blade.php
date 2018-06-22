@@ -1,5 +1,9 @@
 @extends('admin_layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('bootstrap-fileinput/css/fileinput.min.css') }}">
+@endsection
+
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
@@ -39,6 +43,14 @@
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             <input type="email" id="email" name="email" class="form-control" placeholder="邮箱" required>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="avatar" class="col-md-2 control-label">头像</label>
+
+                    <div class="col-md-8">
+                        <input type="file" id="avatar" name="avatar" class="form-control" placeholder="头像">
                     </div>
                 </div>
 
@@ -90,6 +102,12 @@
 @endsection
 
 @section('js')
+    {{--<script src="{{ asset('bootstrap-fileinput/js/plugins/piexif.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('bootstrap-fileinput/js/plugins/purify.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('bootstrap-fileinput/js/plugins/sortable.min.js') }}"></script>--}}
+    <script src="{{ asset('bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    {{--<script src="{{ asset('bootstrap-fileinput/themes/fa/theme.min.js') }}"></script>--}}
+    <script src="{{ asset('bootstrap-fileinput/js/locales/zh.js') }}"></script>
     <script>
         (function () {
             'use strict';
@@ -97,6 +115,12 @@
             $("select").select2();
 
             $(function () {
+                $("#avatar").fileinput({
+                    language: "zh",
+                    uploadUrl: "/file-upload-batch/2",
+                    allowedFileExtensions: ["jpg", "png", "gif"]
+                });
+
                 $("#appForm").validate({
                     rules: {
                         name: {

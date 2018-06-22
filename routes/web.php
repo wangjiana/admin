@@ -47,3 +47,6 @@ Route::get('logs', 'LogController@index');
 
 // 操作日志
 Route::resource('operations', 'OperationController');
+
+// 上传图片
+Route::post('upload_image', 'UploadFileController@uploadImage')->name('uploadFile.upload_image');

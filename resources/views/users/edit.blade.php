@@ -17,68 +17,61 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form class="form-horizontal" method="post" action="{{ route('users.update', [$user->id]) }}">
-            {{ csrf_field() }}
-            {{ method_field('PUT') }}
+        <form id="appForm" class="form-horizontal">
             <div class="box-body">
-                <div class="form-group @if($errors->has('id')) has-error @endif">
+                <div class="form-group">
                     <label for="id" class="col-md-2 control-label">ID</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="id" name="id" value="{{ old('id', $user->id) }}" class="form-control" placeholder="ID" disabled required>
+                            <input type="text" id="id" name="id" value="{{ $user->id }}" class="form-control" placeholder="ID" disabled required>
                         </div>
                     </div>
-                    @if($errors->has('id')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('id') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('name')) has-error @endif">
+                <div class="form-group">
                     <label for="name" class="col-md-2 control-label">用户名</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="form-control" placeholder="用户名" required>
+                            <input type="text" id="name" name="name" value="{{ $user->name }}" class="form-control" placeholder="用户名" required>
                         </div>
                     </div>
-                    @if($errors->has('name')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('name') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('email')) has-error @endif">
+                <div class="form-group">
                     <label for="username" class="col-md-2 control-label">邮箱</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="form-control" placeholder="邮箱" required>
+                            <input type="email" id="email" name="email" value="{{ $user->email }}" class="form-control" placeholder="邮箱" required>
                         </div>
                     </div>
-                    @if($errors->has('email')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('email') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('password')) has-error @endif">
+                <div class="form-group">
                     <label for="password" class="col-md-2 control-label">密码</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
-                            <input type="password" id="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="密码">
+                            <input type="password" id="password" name="password" value="" class="form-control" placeholder="密码">
                         </div>
                     </div>
-                    @if($errors->has('password')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('password_confirmation')) has-error @endif">
+                <div class="form-group">
                     <label for="password_confirmation" class="col-md-2 control-label">密码确认</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
-                            <input type="password" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control password_confirmation" placeholder="密码确认">
+                            <input type="password" id="password_confirmation" name="password_confirmation" value="" class="form-control password_confirmation" placeholder="密码确认">
                         </div>
                     </div>
-                    @if($errors->has('password_confirmation')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password_confirmation') }}</div>@endif
                 </div>
 
                 <div class="form-group">
@@ -93,28 +86,26 @@
                     </div>
                 </div>
 
-                <div class="form-group @if($errors->has('created_at')) has-error @endif">
+                <div class="form-group">
                     <label for="created_at" class="col-md-2 control-label">创建时间</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="created_at" name="created_at" value="{{ old('created_at', $user->created_at) }}" class="form-control" placeholder="创建时间" disabled>
+                            <input type="text" id="created_at" name="created_at" value="{{ $user->created_at }}" class="form-control" placeholder="创建时间" disabled>
                         </div>
                     </div>
-                    @if($errors->has('created_at')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('created_at') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('updated_at')) has-error @endif">
+                <div class="form-group">
                     <label for="updated_at" class="col-md-2 control-label">更新时间</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="updated_at" name="updated_at" value="{{ old('updated_at', $user->updated_at) }}" class="form-control" placeholder="更新时间" disabled>
+                            <input type="text" id="updated_at" name="updated_at" value="{{ $user->updated_at }}" class="form-control" placeholder="更新时间" disabled>
                         </div>
                     </div>
-                    @if($errors->has('updated_at')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('updated_at') }}</div>@endif
                 </div>
             </div>
             <!-- /.box-body -->
@@ -136,6 +127,91 @@
             'use strict';
 
             $("select").select2();
+
+            $(function () {
+                $("#appForm").validate({
+                    rules: {
+                        name: {
+                            required: true,
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            }
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            },
+                            minlength: {
+                                param: 6,
+                                depends: function (element) {
+                                    if ($(element).val()) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        },
+                        password_confirmation: {
+                            equalTo: "#password"
+                        },
+                        role_id: {
+                            required: true,
+                            number: true,
+                            min: 1
+                        }
+                    },
+                    messages: {
+                        name: {
+                            required: '用户名不能为空',
+                            maxlength: '用户名最多为10个字符'
+                        },
+                        email: {
+                            required: '邮箱不能为空',
+                            email: '请输入有效的邮箱地址。'
+                        },
+                        password: {
+                            minlength: '密码不能少于6个字符'
+                        },
+                        password_confirmation: {
+                            equalTo: '请输入相同的密码'
+                        },
+                        role_id: {
+                            required: '角色不能为空',
+                            number: '请选择有效角色',
+                            min: '请选择有效角色'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        $.ajax({
+                            type: 'PUT',
+                            url: '/users/' + "{{ $user->id }}",
+                            data: $(form).serialize(),
+                            dataType: 'json',
+                            success: function (response, textStatus, xhr) {
+                                toastr.success(response.message);
+                            },
+                            error: function (xhr, textStatus, error) {
+                                if (xhr.status == 422) {
+                                    // request 校验不通过
+                                    var errors = xhr.responseJSON.errors;
+                                    var errorsHtml = '';
+                                    $.each(errors, function(key, value) {
+                                        errorsHtml += '<li>' + value[0] + '</li>';
+                                    });
+                                    toastr.error(errorsHtml);
+                                } else {
+                                    toastr.error(xhr.responseJSON.message);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
         })();
     </script>
 @endsection

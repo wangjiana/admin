@@ -13,12 +13,7 @@
 
                         <div class="form-group">
                             <label for="email" class="control-label">邮箱</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="邮箱" value="{{ $input['email'] or '' }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="control-label">关键字搜索</label>
-                            <input type="text" name="search" id="search" class="form-control" placeholder="关键字搜索" value="{{ $input['search'] or '' }}">
+                            <input name="email" id="email" class="form-control" placeholder="邮箱" value="{{ $input['email'] or '' }}">
                             <button type="submit"
                                     style="margin-left: -3px; border-top-left-radius: 0; border-bottom-left-radius: 0;"
                                     class="btn btn-default">
@@ -83,13 +78,9 @@
                                     <a href="{{ route('users.edit', [$user->id]) }}" class="btn btn-default btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <form style="display: inline-block;" method="post" action="{{ route('users.destroy', [$user->id]) }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button class="btn btn-default btn-sm">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <button data-id="{{ $user->id }}" class="btn btn-default btn-sm destroy">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -105,4 +96,37 @@
             <!-- /.box -->
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(function () {
+            $("button.destroy").click(function () {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/users/' + id,
+                    dataType: 'json',
+                    context: this,
+                    success: function (response, textStatus, xhr) {
+                        $(this).parents('tr').remove();
+                        toastr.success(response.message);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        if (xhr.status == 422) {
+                            // request 校验不通过
+                            var errors = xhr.responseJSON.errors;
+                            var errorsHtml = '';
+                            $.each(errors, function(key, value) {
+                                errorsHtml += '<li>' + value[0] + '</li>';
+                            });
+                            toastr.error(errorsHtml);
+                        } else {
+                            toastr.error(xhr.responseJSON.message);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

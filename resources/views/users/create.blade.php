@@ -17,62 +17,58 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form class="form-horizontal" method="post" action="{{ route('users.store') }}">
+        <form id="appForm" class="form-horizontal">
             {{ csrf_field() }}
             <div class="box-body">
-                <div class="form-group @if($errors->has('name')) has-error @endif">
+                <div class="form-group">
                     <label for="name" class="col-md-2 control-label">用户名</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-control" placeholder="用户名" required>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="用户名" required>
                         </div>
                     </div>
-                    @if($errors->has('name')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('name') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('email')) has-error @endif">
-                    <label for="username" class="col-md-2 control-label">邮箱</label>
+                <div class="form-group">
+                    <label for="email" class="col-md-2 control-label">邮箱</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="邮箱" required>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="邮箱" required>
                         </div>
                     </div>
-                    @if($errors->has('email')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('email') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('password')) has-error @endif">
+                <div class="form-group">
                     <label for="password" class="col-md-2 control-label">密码</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
-                            <input type="password" id="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="密码">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
                         </div>
                     </div>
-                    @if($errors->has('password')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password') }}</div>@endif
                 </div>
 
-                <div class="form-group @if($errors->has('password_confirmation')) has-error @endif">
+                <div class="form-group">
                     <label for="password_confirmation" class="col-md-2 control-label">密码确认</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
-                            <input type="password" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control password_confirmation" placeholder="密码确认">
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control password_confirmation" placeholder="密码确认" required>
                         </div>
                     </div>
-                    @if($errors->has('password_confirmation')) <div class="col-md-offset-2 col-md-8 help-block no-margin-bottom">{{ $errors->first('password_confirmation') }}</div>@endif
                 </div>
 
                 <div class="form-group">
                     <label for="role_id" class="col-md-2 control-label">角色</label>
 
                     <div class="col-md-8">
-                        <select id="role_id" name="role_id" class="form-control">
+                        <select id="role_id" name="role_id" class="form-control" required>
                             @foreach($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
@@ -99,6 +95,88 @@
             'use strict';
 
             $("select").select2();
+
+            $(function () {
+                $("#appForm").validate({
+                    rules: {
+                        name: {
+                            required: true,
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            }
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            required: true,
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            },
+                            minlength: 6
+                        },
+                        password_confirmation: {
+                            required: true,
+                            normalizer: function(value) {
+                                return $.trim(value);
+                            },
+                            equalTo: "#password"
+                        },
+                        role_id: {
+                            required: true,
+                            number: true,
+                            min: 1
+                        }
+                    },
+                    messages: {
+                        name: {
+                            required: '用户名不能为空'
+                        },
+                        email: {
+                            required: '邮箱不能为空',
+                            email: '请输入有效的邮箱地址。'
+                        },
+                        password: {
+                            required: '密码不能为空',
+                            minlength: '密码不能少于6个字符'
+                        },
+                        password_confirmation: {
+                            required: '密码确认不能为空',
+                            equalTo: '请输入相同的密码'
+                        },
+                        role_id: {
+                            required: '角色不能为空',
+                            number: '请选择有效角色',
+                            min: '请选择有效角色'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/users',
+                            data: $(form).serialize(),
+                            dataType: 'json',
+                            success: function (response, textStatus, xhr) {
+                                toastr.success(response.message);
+                            },
+                            error: function (xhr, textStatus, error) {
+                                if (xhr.status == 422) {
+                                    // request 校验不通过
+                                    var errors = xhr.responseJSON.errors;
+                                    var errorsHtml = '';
+                                    $.each(errors, function(key, value) {
+                                        errorsHtml += '<li>' + value[0] + '</li>';
+                                    });
+                                    toastr.error(errorsHtml);
+                                } else {
+                                    toastr.error(xhr.responseJSON.message);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
         })();
     </script>
 @endsection

@@ -40,7 +40,7 @@ class UserRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name' => 'required|string|min:5',
+                    'name' => 'required|string',
                     'email' => [
                         'required',
                         'email',

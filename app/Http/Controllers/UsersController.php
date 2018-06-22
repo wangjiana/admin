@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
 {
@@ -19,10 +20,10 @@ class UsersController extends Controller
         $input = $request->all();
         $users = User::where(function ($query) use ($input) {
             if (! empty($input['name'])) {
-                $query->where('name', $input['name']);
+                $query->where('name', 'like', "%{$input['name']}%");
             }
             if (! empty($input['email'])) {
-                $query->where('email', $input['email']);
+                $query->where('email', 'like', "%{$input['email']}%");
             }
         })->paginate();
 
@@ -54,7 +55,7 @@ class UsersController extends Controller
 
         $user->assignRole($input['role_id']);
 
-        return redirect()->route('users.show', $user->id);
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     /**
@@ -100,7 +101,7 @@ class UsersController extends Controller
         }
 
         $user->update($input);
-        return redirect()->route('users.show', $user->id);
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     /**
@@ -112,6 +113,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index');
+        return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 }

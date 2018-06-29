@@ -22,7 +22,8 @@ class ImageUploadHandler
 
         // 拼接文件名，加前缀是为了增加辨析度，前缀可以是相关数据模型的 ID
         // 值如：1_1493521050_7BVc9v9ujP.png
-        $filename = $file_prefix . '_' . time() . '_' . str_random(10) . '.' . $extension;
+        $basename = $file_prefix . '_' . time() . '_' . str_random(10);
+        $filename = $basename . '.' . $extension;
 
         // 如果上传的不是图片将终止操作
         if ( ! in_array($extension, $this->allowed_ext)) {
@@ -31,6 +32,23 @@ class ImageUploadHandler
 
         // 将图片移动到我们的目标存储路径中
         $file->move($upload_path, $filename);
+
+        // 转换 jpg 编码格式
+        if ($extension == 'png') {
+            // 先实例化，传参是文件的磁盘物理路径
+            $image = Image::make($upload_path . $filename);
+
+            // 转换为 jpg 格式
+            $image->encode('jpg');
+
+            // 对图片修改后进行保存
+            $image->save($upload_path . $basename . '.jpg');
+
+            // 删除旧图片
+            unlink($upload_path . $filename);
+
+            $filename = $basename . '.jpg';
+        }
 
         // 如果限制了图片宽度，就进行裁剪
         if ($max_width && $extension != 'gif') {
@@ -61,34 +79,5 @@ class ImageUploadHandler
 
         // 对图片修改后进行保存
         $image->save();
-    }
-
-    /**
-     * 保存图片
-     */
-    public function store($file, $folder = 'default')
-    {
-        // 校验文件有效性
-        if (! $file->isVaild()) {
-            return false;
-        }
-
-        $imagesConfig = config('uploadfile.images');
-
-        // 校验文件尺寸
-        if ($file->getClientSize() > $imagesConfig['max_size']) {
-            return false;
-        }
-        // 校验文件后缀
-        if (! in_array($file->getClientOriginalExtentsion(), $imagesConfig['extension'])) {
-            return false;
-        }
-
-        $folderName = $imagesConfig['upload_path'] . $folder . '/' . date("Ymd") . '/';
-        $storePath = public_path() . $folderName;
-        $fileName = time() . str_random() . '.' . $file->getClientOriginalExtentsion();
-        $file->move($storePath, $fileName);
-
-        return config('app.url') . $folderName . $fileName;
     }
 }

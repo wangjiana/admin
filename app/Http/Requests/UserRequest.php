@@ -30,6 +30,7 @@ class UserRequest extends FormRequest
                     'name' => 'required|string',
                     'email' => 'required|email|unique:users',
                     'password' => 'required|string|min:6|confirmed',
+                    'avatar' => 'nullable|string',
                     'role_id' => [
                         'required',
                         'numeric',
@@ -47,6 +48,7 @@ class UserRequest extends FormRequest
                         Rule::unique('users')->ignore($this->segment(2)),
                     ],
                     'password' => 'nullable|string|min:6|confirmed',
+                    'avatar' => 'nullable|string',
                     'role_id' => [
                         'required',
                         'numeric',

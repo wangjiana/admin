@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Handlers\ImageUploadHandler;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class uploadFileController extends Controller
 {
@@ -27,12 +28,23 @@ class uploadFileController extends Controller
             $result = $uploader->save($file, $folder, Auth::id(), 1024);
             // 图片保存成功的话
             if ($result) {
-                $data['file_path'] = $result['path'];
+                $data['file_path'] = $result['file_path'];
                 $data['message']   = "上传成功!";
                 $data['success']   = true;
+
+                return response()->json($data, Response::HTTP_CREATED);
             }
         }
 
-        return $data;
+        return response()->json($data, Response::HTTP_BAD_REQUEST);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $file_path = public_path() . $request->key;
+
+        unlink($file_path);
+
+        return response()->json(['delete_image' => $file_path, 'message' => '删除成功！']);
     }
 }

@@ -1,5 +1,9 @@
 @extends('admin_layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('bootstrap-fileinput/css/fileinput.min.css') }}">
+@endsection
+
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
@@ -42,13 +46,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="username" class="col-md-2 control-label">邮箱</label>
+                    <label for="email" class="col-md-2 control-label">邮箱</label>
 
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             <input type="email" id="email" name="email" value="{{ $user->email }}" class="form-control" placeholder="邮箱" required>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="upload_file" class="col-md-2 control-label">头像</label>
+
+                    <div class="col-md-8">
+                        <input type="file" id="upload_file" name="upload_file" class="form-control" placeholder="头像">
+                        <input type="hidden" id="avatar" name="avatar" class="form-control" value="{{ $user->avatar }}">
                     </div>
                 </div>
 
@@ -122,13 +135,66 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('bootstrap-fileinput/js/locales/zh.js') }}"></script>
     <script>
         (function () {
             'use strict';
 
             $("select").select2();
 
+            function submitForm(form) {
+                // 保存用户信息
+                $.ajax({
+                    type: 'PUT',
+                    url: '/users/' + "{{ $user->id }}",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success: function (response, textStatus, xhr) {
+                        toastr.success(response.message);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        if (xhr.status == 422) {
+                            // request 校验不通过
+                            var errors = xhr.responseJSON.errors;
+                            var errorsHtml = '';
+                            $.each(errors, function(key, value) {
+                                errorsHtml += '<li>' + value[0] + '</li>';
+                            });
+                            toastr.error(errorsHtml);
+                        } else {
+                            toastr.error(xhr.responseJSON.message);
+                        }
+                    }
+                });
+            }
+
             $(function () {
+                $("#upload_file").fileinput({
+                    @if($user->avatar)
+                        initialPreview: [
+                            "{{ $user->avatar }}"
+                        ],
+                        initialPreviewAsData: true,
+                        initialPreviewConfig: [
+                            {downloadUrl: "{{ $user->avatar }}", key: "{{ $user->avatar }}"}
+                        ],
+                    @endif
+
+                    deleteUrl: "/delete_image",
+                    overwriteInitial: true,
+                    previewFileType: "image",
+                    language: "zh",
+                    showUpload: false,
+                    maxFileSize: 1024, // KB
+                    allowedFileExtensions: ["jpg", 'jpeg', "png", "gif"],
+                    allowedFileTypes: ["image"]
+                }).on('filedeleted', function(event, key, jqXHR, data) {
+                    $("#avatar").val('');
+                }).on('filecleared', function(event) {
+                    $("#avatar").val('');
+                });
+
                 $("#appForm").validate({
                     rules: {
                         name: {
@@ -187,28 +253,46 @@
                         }
                     },
                     submitHandler: function (form) {
-                        $.ajax({
-                            type: 'PUT',
-                            url: '/users/' + "{{ $user->id }}",
-                            data: $(form).serialize(),
-                            dataType: 'json',
-                            success: function (response, textStatus, xhr) {
-                                toastr.success(response.message);
-                            },
-                            error: function (xhr, textStatus, error) {
-                                if (xhr.status == 422) {
-                                    // request 校验不通过
-                                    var errors = xhr.responseJSON.errors;
-                                    var errorsHtml = '';
-                                    $.each(errors, function(key, value) {
-                                        errorsHtml += '<li>' + value[0] + '</li>';
-                                    });
-                                    toastr.error(errorsHtml);
-                                } else {
-                                    toastr.error(xhr.responseJSON.message);
+                        var upload_file = $("#upload_file").val();
+
+                        if (upload_file) {
+                            var  formData = new FormData();
+                            formData.append('upload_file', $("#upload_file")[0].files[0]); // 上传该文件
+                            formData.append('input_name', 'upload_file'); // 上传文件时接收的参数名
+                            formData.append('folder', 'avatar'); // 保存图片的目录名
+
+                            // 上传图片
+                            $.ajax({
+                                type: 'POST',
+                                url: '/upload_image',
+                                data: formData,
+                                dataType: 'json',
+                                processData: false, // 不处理发送的数据
+                                contentType: false, // 不处理头信息
+                                success: function(data){
+                                    $("#avatar").val(data.file_path);
+
+                                    // 保存用户信息
+                                    submitForm(form);
+                                },
+                                error: function (xhr, textStatus, error) {
+                                    if (xhr.status == 422) {
+                                        // request 校验不通过
+                                        var errors = xhr.responseJSON.errors;
+                                        var errorsHtml = '';
+                                        $.each(errors, function(key, value) {
+                                            errorsHtml += '<li>' + value[0] + '</li>';
+                                        });
+                                        toastr.error(errorsHtml);
+                                    } else {
+                                        toastr.error(xhr.responseJSON.message);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            // 保存用户信息
+                            submitForm(form);
+                        }
                     }
                 });
             });

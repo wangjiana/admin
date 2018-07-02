@@ -94,6 +94,8 @@ class UsersController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $input = $request->all();
+        $input['avatar'] = $input['avatar'] ? : '';
+
         if (! empty($input['password'])) {
             $input['password'] = bcrypt($input['password']);
         } else {

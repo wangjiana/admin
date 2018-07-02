@@ -47,10 +47,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="avatar" class="col-md-2 control-label">头像</label>
+                    <label for="upload_file" class="col-md-2 control-label">头像</label>
 
                     <div class="col-md-8">
-                        <input type="file" id="avatar" name="avatar" class="form-control" placeholder="头像">
+                        <input type="file" id="upload_file" name="upload_file" class="form-control" placeholder="头像">
+                        <input type="hidden" id="avatar" name="avatar" class="form-control" placeholder="头像">
                     </div>
                 </div>
 
@@ -114,11 +115,42 @@
 
             $("select").select2();
 
+            function submitForm(form) {
+                // 保存用户信息
+                $.ajax({
+                    type: 'PUT',
+                    url: '/users/' + "{{ $user->id }}",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success: function (response, textStatus, xhr) {
+                        toastr.success(response.message);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        if (xhr.status == 422) {
+                            // request 校验不通过
+                            var errors = xhr.responseJSON.errors;
+                            var errorsHtml = '';
+                            $.each(errors, function(key, value) {
+                                errorsHtml += '<li>' + value[0] + '</li>';
+                            });
+                            toastr.error(errorsHtml);
+                        } else {
+                            toastr.error(xhr.responseJSON.message);
+                        }
+                    }
+                });
+            }
+
             $(function () {
-                $("#avatar").fileinput({
+                $("#upload_file").fileinput({
+                    previewFileType: "image",
                     language: "zh",
-                    uploadUrl: "/file-upload-batch/2",
-                    allowedFileExtensions: ["jpg", "png", "gif"]
+                    showUpload: false,
+                    maxFileSize: 1024, // KB
+                    allowedFileExtensions: ["jpg", 'jpeg', "png", "gif"],
+                    allowedFileTypes: ["image"]
+                }).on('filecleared', function(event) {
+                    $("#avatar").val('');
                 });
 
                 $("#appForm").validate({
@@ -176,28 +208,47 @@
                         }
                     },
                     submitHandler: function (form) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/users',
-                            data: $(form).serialize(),
-                            dataType: 'json',
-                            success: function (response, textStatus, xhr) {
-                                toastr.success(response.message);
-                            },
-                            error: function (xhr, textStatus, error) {
-                                if (xhr.status == 422) {
-                                    // request 校验不通过
-                                    var errors = xhr.responseJSON.errors;
-                                    var errorsHtml = '';
-                                    $.each(errors, function(key, value) {
-                                        errorsHtml += '<li>' + value[0] + '</li>';
-                                    });
-                                    toastr.error(errorsHtml);
-                                } else {
-                                    toastr.error(xhr.responseJSON.message);
+                        var upload_file = $("#upload_file").val();
+
+                        if (upload_file) {
+                            var  formData = new FormData();
+                            formData.append('upload_file', $("#upload_file")[0].files[0]); // 上传该文件
+                            formData.append('input_name', 'upload_file'); // 上传文件时接收的参数名
+                            formData.append('folder', 'avatar'); // 保存图片的目录名
+
+                            // 上传图片
+                            $.ajax({
+                                type: 'POST',
+                                url: '/upload_image',
+                                data: formData,
+                                dataType: 'json',
+                                processData: false, // 不处理发送的数据
+                                contentType: false, // 不处理头信息
+                                success: function(data){
+                                    $("#avatar").val(data.file_path);
+
+                                    // 保存用户信息
+                                    submitForm(form);
+                                },
+                                error: function (xhr, textStatus, error) {
+                                    if (xhr.status == 422) {
+                                        // request 校验不通过
+                                        var errors = xhr.responseJSON.errors;
+                                        var errorsHtml = '';
+                                        $.each(errors, function(key, value) {
+                                            errorsHtml += '<li>' + value[0] + '</li>';
+                                        });
+                                        toastr.error(errorsHtml);
+                                    } else {
+                                        toastr.error(xhr.responseJSON.message);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            // 保存用户信息
+                            submitForm(form);
+                        }
+
                     }
                 });
             });

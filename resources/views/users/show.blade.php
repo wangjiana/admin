@@ -1,5 +1,9 @@
 @extends('admin_layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('bootstrap-fileinput/css/fileinput.min.css') }}">
+@endsection
+
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
@@ -53,6 +57,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="upload_file" class="col-md-2 control-label">头像</label>
+
+                    <div class="col-md-8">
+                        <input type="file" id="upload_file" name="upload_file" class="form-control" placeholder="头像" disabled="true">
+                        <input type="hidden" id="avatar" name="avatar" class="form-control" value="{{ $user->avatar }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="role_id" class="col-md-2 control-label">角色</label>
 
                     <div class="col-md-8">
@@ -89,4 +102,37 @@
             <!-- /.box-body -->
         </form>
     </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset('bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('bootstrap-fileinput/js/locales/zh.js') }}"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            $(function () {
+                $("#upload_file").fileinput({
+                    @if($user->avatar)
+                    initialPreview: [
+                        "{{ $user->avatar }}"
+                    ],
+                    initialPreviewAsData: true,
+                    initialPreviewConfig: [
+                        {downloadUrl: "{{ $user->avatar }}", key: "{{ $user->avatar }}"}
+                    ],
+                    @endif
+
+                    overwriteInitial: true,
+                    previewFileType: "image",
+                    language: "zh",
+                    showUpload: false,
+                    showRemove: false,
+                    maxFileSize: 1024, // KB
+                    allowedFileExtensions: ["jpg", 'jpeg', "png", "gif"],
+                    allowedFileTypes: ["image"]
+                });
+            });
+        })();
+    </script>
 @endsection

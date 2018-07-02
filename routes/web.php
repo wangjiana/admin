@@ -50,3 +50,4 @@ Route::resource('operations', 'OperationController');
 
 // 上传图片
 Route::post('upload_image', 'UploadFileController@uploadImage')->name('uploadFile.upload_image');
+Route::post('delete_image', 'UploadFileController@deleteImage')->name('uploadFile.delete_image');

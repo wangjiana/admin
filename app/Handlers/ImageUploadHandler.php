@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Handlers;
+
 use Image;
 
 class ImageUploadHandler
@@ -58,7 +59,7 @@ class ImageUploadHandler
         }
 
         return [
-            'path' => config('app.url') . "/$folder_name/$filename"
+            'file_path' => "/{$folder_name}{$filename}",
         ];
     }
 

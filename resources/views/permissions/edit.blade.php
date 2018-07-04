@@ -18,7 +18,6 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form id="appForm" class="form-horizontal">
-            {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
                     <label for="id" class="col-md-2 control-label">ID</label>

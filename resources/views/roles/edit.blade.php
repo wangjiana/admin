@@ -18,7 +18,6 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form id="appForm" class="form-horizontal">
-            {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
                     <label for="id" class="col-md-2 control-label">ID</label>
@@ -32,7 +31,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="col-md-2 control-label">用户名</label>
+                    <label for="name" class="col-md-2 control-label">角色名</label>
 
                     <div class="col-md-8">
                         <div class="input-group">

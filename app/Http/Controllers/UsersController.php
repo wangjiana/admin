@@ -50,7 +50,9 @@ class UsersController extends Controller
     public function store(UserRequest $request)
     {
         $input = $request->all();
+        $input['avatar'] = $input['avatar'] ? : '';
         $input['password'] = bcrypt($input['password']);
+
         $user = User::create($input);
 
         $user->assignRole($input['role_id']);
@@ -103,6 +105,9 @@ class UsersController extends Controller
         }
 
         $user->update($input);
+
+        $user->syncRoles($input['role_id']);
+
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 

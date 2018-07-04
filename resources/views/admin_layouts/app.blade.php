@@ -69,7 +69,7 @@
                     <small>控制面板</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i>主页</a></li>
+                    <li><a href="/home"><i class="fa fa-dashboard"></i>主页</a></li>
                     @foreach($layout_nav_path as $key => $value)
                         @if($layout_menu_name == $value->menu_name)
                             <li class="active">{{ $value->menu_name }}</li>

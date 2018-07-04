@@ -22,7 +22,6 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form id="appForm" class="form-horizontal">
-            {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-md-2 control-label">用户名</label>
@@ -118,8 +117,8 @@
             function submitForm(form) {
                 // 保存用户信息
                 $.ajax({
-                    type: 'PUT',
-                    url: '/users/' + "{{ $user->id }}",
+                    type: 'POST',
+                    url: '/users',
                     data: $(form).serialize(),
                     dataType: 'json',
                     success: function (response, textStatus, xhr) {

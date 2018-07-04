@@ -22,6 +22,7 @@ class SeedUsersAndRolesAndPermissionsData extends Migration
                 ['name' => 'users.index', 'guard_name' => 'web', 'icon' => 'fa fa-users', 'menu_name' => '用户列表 ', 'url' => '/users', 'children' => [
                     ['name' => 'users.create', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '创建用户', 'url' => ''],
                     ['name' => 'users.store', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '保存用户', 'url' => ''],
+                    ['name' => 'users.show', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '显示用户', 'url' => ''],
                     ['name' => 'users.edit', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '编辑用户', 'url' => ''],
                     ['name' => 'users.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新用户', 'url' => ''],
                     ['name' => 'users.destroy', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '删除用户', 'url' => ''],
@@ -29,6 +30,7 @@ class SeedUsersAndRolesAndPermissionsData extends Migration
                 ['name' => 'roles.index', 'guard_name' => 'web', 'icon' => 'fa fa-user', 'menu_name' => '角色列表', 'url' => '/roles', 'children' => [
                     ['name' => 'roles.create', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '创建角色', 'url' => ''],
                     ['name' => 'roles.store', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '保存角色', 'url' => ''],
+                    ['name' => 'roles.show', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '显示角色', 'url' => ''],
                     ['name' => 'roles.edit', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '编辑角色', 'url' => ''],
                     ['name' => 'roles.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新角色', 'url' => ''],
                     ['name' => 'roles.destroy', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '删除角色', 'url' => ''],
@@ -38,6 +40,7 @@ class SeedUsersAndRolesAndPermissionsData extends Migration
                 ['name' => 'permissions.index', 'guard_name' => 'web', 'icon' => 'fa fa-ban', 'menu_name' => '权限列表', 'url' => '/permissions', 'children' => [
                     ['name' => 'permissions.create', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '创建权限', 'url' => ''],
                     ['name' => 'permissions.store', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '保存权限', 'url' => ''],
+                    ['name' => 'permissions.show', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '显示权限', 'url' => ''],
                     ['name' => 'permissions.edit', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '编辑权限', 'url' => ''],
                     ['name' => 'permissions.update', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '更新权限', 'url' => ''],
                     ['name' => 'permissions.destroy', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '删除权限', 'url' => ''],

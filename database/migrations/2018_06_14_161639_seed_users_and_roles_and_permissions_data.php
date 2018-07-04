@@ -16,7 +16,9 @@ class SeedUsersAndRolesAndPermissionsData extends Migration
     public function up()
     {
         $permissions = [
-            ['name' => 'xtgl', 'guard_name' => 'web', 'icon' => 'fa fa-tasks', 'menu_name' => '系统管理', 'url' => '', 'children' => [
+            ['name' => 'home', 'guard_name' => 'web', 'icon' => 'fa fa-bar-chart', 'menu_name' => '主页', 'url' => '/home'],
+
+            ['name' => 'xtgl', 'guard_name' => 'web', 'icon' => 'fa fa-tasks', 'menu_name' => '后台管理', 'url' => '', 'children' => [
                 ['name' => 'users.index', 'guard_name' => 'web', 'icon' => 'fa fa-users', 'menu_name' => '用户列表 ', 'url' => '/users', 'children' => [
                     ['name' => 'users.create', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '创建用户', 'url' => ''],
                     ['name' => 'users.store', 'guard_name' => 'web', 'icon' => '', 'menu_name' => '保存用户', 'url' => ''],

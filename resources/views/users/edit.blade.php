@@ -152,6 +152,7 @@
                     dataType: 'json',
                     success: function (response, textStatus, xhr) {
                         toastr.success(response.message);
+                        location.reload();
                     },
                     error: function (xhr, textStatus, error) {
                         if (xhr.status == 422) {

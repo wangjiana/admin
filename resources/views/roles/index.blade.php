@@ -124,8 +124,9 @@
                     data: $("#modal_form").serialize(),
                     dataType: 'json',
                     success: function (response, textStatus, xhr) {
-                        $('#modal').modal('hide');
                         toastr.success(response.message);
+                        $('#modal').modal('hide');
+                        location.reload();
                     },
                     error: function (xhr, textStatus, error) {
                         if (xhr.status == 422) {

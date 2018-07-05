@@ -34,8 +34,8 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::resource('users', 'UsersController');
-Route::get('roles/{role}/auth', 'RolesController@getRoleAuth')->name('roles.getRoleAuth');
-Route::post('roles/{role}/auth', 'RolesController@roleAuth')->name('roles.roleAuth');
+Route::get('roles/{role}/auth', 'RolesController@getRoleAuth')->name('roles.getRoleAuth'); // 查看角色拥有的权限
+Route::post('roles/{role}/auth', 'RolesController@roleAuth')->name('roles.roleAuth'); // 为角色授权
 Route::resource('roles', 'RolesController');
 Route::resource('permissions', 'PermissionsController');
 

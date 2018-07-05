@@ -64,7 +64,7 @@ class SeedUsersAndRolesAndPermissionsData extends Migration
         // 创建管理员角色，并赋予权限
         $admin = Role::create(['name' => '管理员']);
         // 不赋予的权限
-        $invalidData = ['权限列表', '创建权限', '保存权限', '显示权限', '编辑权限', '权限列表', '创建权限'];
+        $invalidData = ['权限列表', '创建权限', '保存权限', '显示权限', '编辑权限', '更新权限', '删除权限'];
         $permissions = Permission::whereNotIN('menu_name', $invalidData)->get();
         $admin->givePermissionTo($permissions);
 

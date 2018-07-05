@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Route;
 use App\Models\Permission;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -18,29 +19,20 @@ class Controller extends BaseController
     {
         $this->middleware('permission');
 
-        if (! $request->ajax()) {
-            $menus = $this->getMenus();
-            $routeName = Route::currentRouteName();
-            $menuName = $this->getCurrentMenuName($menus, $routeName);
-            $navPath = $this->getNavPath($this->getMenus(), $routeName);
+        $this->middleware(function ($request, $next) {
+            if (! $request->ajax()) {
+                $routeName = Route::currentRouteName();
+                $menuName = Permission::firstByName($routeName)->menu_name;
+                $navPath = $this->getNavPath(Auth::user()->getAllPermissionsTree(), $routeName);
 
-            view()->share('layout_menus', $menus);
-//        view()->share('layout_uri', '/' . $request->path());
-            view()->share('layout_route_name', $routeName);
-            view()->share('layout_menu_name', $menuName);
-            view()->share('layout_nav_path', $navPath);
-        }
-    }
+                view()->share('layout_menus', Auth::user()->getAllPermissionsTree());
+                view()->share('layout_route_name', $routeName);
+                view()->share('layout_menu_name', $menuName);
+                view()->share('layout_nav_path', $navPath);
+            }
 
-    protected function getMenus()
-    {
-        return Permission::getPermissionsTree();
-    }
-
-    protected function getCurrentMenuName($menus, $routeName)
-    {
-        $data = treeFindNode($menus, 'name', $routeName);
-        return $data->menu_name;
+            return $next($request);
+        });
     }
 
     protected function getNavPath($menus, $routeName)

@@ -27,4 +27,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getAllPermissionsTree()
+    {
+        $permission = $this->permissions->merge($this->getPermissionsViaRoles())->sortBy('sort')->values();
+
+        return arrayToTree($permission);
+    }
 }

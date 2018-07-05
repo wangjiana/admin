@@ -11,7 +11,8 @@ class MenusController extends Controller
 {
     public function index()
     {
-        $menus = $this->getMenus();
+        $menus = Permission::getPermissionsTree();
+
         return view('menus.index', compact('menus'));
     }
 

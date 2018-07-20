@@ -17,6 +17,8 @@ class Controller extends BaseController
 
     public function __construct(Request $request)
     {
+        $this->middleware('auth');
+
         $this->middleware('permission');
 
         $this->middleware(function ($request, $next) {

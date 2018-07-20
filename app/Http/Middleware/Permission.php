@@ -18,10 +18,6 @@ class Permission
      */
     public function handle($request, Closure $next)
     {
-        if (! Auth::check()) {
-            return redirect('/login');
-        }
-
         $user = Auth::user();
         $routeName = Route::currentRouteName();
         $permission = PermissionModel::firstByName($routeName);

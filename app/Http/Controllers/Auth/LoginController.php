@@ -45,10 +45,10 @@ class LoginController extends Controller
      * @param  mixed  $user
      * @return mixed
      */
-    protected function authenticated(Request $request, $user)
+    protected function redirectTo()
     {
-        $url = $user->getAllPermissions()->firstWhere('url', '!=', '')->url;
+        $user = $this->guard()->user();
 
-        return redirect()->intended($url);
+        return $user->getAllPermissions()->firstWhere('url', '!=', '')->url;
     }
 }

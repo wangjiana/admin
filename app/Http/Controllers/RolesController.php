@@ -18,15 +18,14 @@ class RolesController extends Controller
     public function index(RoleRequest $request)
     {
         $input = $request->all();
+
         $roles = Role::where(function ($query) use ($input) {
             if (! empty($input['search'])) {
                 $query->where('name', 'like', "%{$input['search']}%");
             }
         })->paginate();
 
-        $permissions = Permission::getPermissionsDelimiter();
-
-        return view('roles.index', compact('input', 'roles', 'permissions'));
+        return view('roles.index', compact('input', 'roles'));
     }
 
     /**
@@ -48,7 +47,9 @@ class RolesController extends Controller
     public function store(RoleRequest $request)
     {
         $input = $request->all();
+
         Role::create($input);
+
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
@@ -84,7 +85,9 @@ class RolesController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         $input = $request->all();
+
         $role->update($input);
+
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
@@ -97,19 +100,23 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 
     public function getRoleAuth(Role $role)
     {
         $permissions = Permission::getPermissionsDelimiter();
+
         $role_permissions = $role->permissions()->pluck('id')->toArray();
+
         return view('roles._auth', compact('permissions', 'role_permissions'));
     }
 
     public function roleAuth(Request $request, Role $role)
     {
         $role->syncPermissions($request->input('permission_ids', []));
+
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
 }

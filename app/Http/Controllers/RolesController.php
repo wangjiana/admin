@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
 use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
@@ -116,6 +117,8 @@ class RolesController extends Controller
     public function roleAuth(Request $request, Role $role)
     {
         $role->syncPermissions($request->input('permission_ids', []));
+
+        Cache::tags('layout_menus')->flush();
 
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }

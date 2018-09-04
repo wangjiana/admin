@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cache;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -30,8 +31,12 @@ class User extends Authenticatable
 
     public function getAllPermissionsTree()
     {
-        $permission = $this->permissions->merge($this->getPermissionsViaRoles())->sortBy('sort')->values();
+        return Cache::tags('layout_menus')->rememberForever($this->id, function() {
 
-        return arrayToTree($permission);
+            $permission = $this->permissions->merge($this->getPermissionsViaRoles())->sortBy('sort')->values();
+
+            return arrayToTree($permission);
+
+        });
     }
 }

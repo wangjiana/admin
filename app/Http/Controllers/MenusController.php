@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
 use DB;
 use App\Models\Permission;
 use Illuminate\Http\Request;
@@ -38,6 +39,8 @@ class MenusController extends Controller
             return response()->json(['message' => '操作失败'], Response::HTTP_BAD_REQUEST);
         }
         DB::commit();
+
+        Cache::tags('layout_menus')->flush();
 
         return response()->json(['message' => '操作成功'], Response::HTTP_OK);
     }
